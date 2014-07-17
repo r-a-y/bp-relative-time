@@ -108,7 +108,7 @@ class BP_Relative_Time {
 
 	public function activity_time_since( $retval, $activity ) {
 		$time_element = sprintf(
-			'<span data-livestamp="%1$s">%2$s</time>',
+			'<span data-livestamp="%1$s">%2$s</span>',
 			$this->get_iso8601_date( $activity->date_recorded ),
 			str_replace( array( '<span class="time-since">', '</span>' ), '', $retval )
 		);
@@ -120,7 +120,7 @@ class BP_Relative_Time {
 		global $activities_template;
 
 		return sprintf(
-			'<span data-livestamp="%1$s">%2$s</time>',
+			'<span data-livestamp="%1$s">%2$s</span>',
 			$this->get_iso8601_date( $activities_template->activity->current_comment->date_recorded ),
 			$retval
 		);
@@ -136,7 +136,7 @@ class BP_Relative_Time {
 			// match the groups component
 			__( 'active %s', 'buddypress' ),
 			sprintf(
-				'<span data-livestamp="%1$s">%2$s</time>',
+				'<span data-livestamp="%1$s">%2$s</span>',
 				$this->get_iso8601_date( $members_template->member->last_activity ),
 				bp_core_time_since( $members_template->member->last_activity )
 			)
@@ -153,7 +153,7 @@ class BP_Relative_Time {
 			// match the groups component
 			_x( 'registered %s', 'Records the timestamp that the user registered into the activy stream', 'buddypress' ),
 			sprintf(
-				'<span data-livestamp="%1$s">%2$s</time>',
+				'<span data-livestamp="%1$s">%2$s</span>',
 				$this->get_iso8601_date( $members_template->member->user_registered ),
 				bp_core_time_since( $members_template->member->user_registered )
 			)
@@ -168,7 +168,7 @@ class BP_Relative_Time {
 		}
 
 		return sprintf(
-			'<span data-livestamp="%1$s">%2$s</time>',
+			'<span data-livestamp="%1$s">%2$s</span>',
 			$this->get_iso8601_date( $groups_template->group->date_created ),
 			$retval
 		);
@@ -188,7 +188,7 @@ class BP_Relative_Time {
 		}
 
 		return sprintf(
-			'<span data-livestamp="%1$s">%2$s</time>',
+			'<span data-livestamp="%1$s">%2$s</span>',
 			$this->get_iso8601_date( $last_active ),
 			$retval
 		);
