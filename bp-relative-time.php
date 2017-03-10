@@ -23,6 +23,15 @@ class BP_Relative_Time {
 		/** hook stuff **/
 		// @todo - messages, blogs directory
 
+		// Remove core BP moment locale; this plugin handles moment differently.
+		// Works only for English installs though...
+		add_filter( 'bp_core_register_common_scripts', function( $retval ) {
+			if ( isset( $retval['bp-moment-locale'] ) ) {
+				unset( $retval['bp-moment-locale'] );
+			}
+			return $retval;
+		} );
+
 		// activity
 		add_filter( 'bp_activity_allowed_tags',          array( $this, 'activity_allowed_tags' ) );
 		add_filter( 'bp_activity_time_since',            array( $this, 'activity_time_since' ), 10, 2 );
