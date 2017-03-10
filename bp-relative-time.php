@@ -84,7 +84,7 @@ class BP_Relative_Time {
 
 		<script type="text/javascript">
 			jq(function() {
-				moment.lang( 'en', {
+				moment.updateLocale( 'en', {
 					relativeTime : BP_Moment_i18n
 				});
 		        });
