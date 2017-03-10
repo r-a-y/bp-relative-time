@@ -32,11 +32,6 @@ class BP_Relative_Time {
 			return $retval;
 		} );
 
-		// activity
-		add_filter( 'bp_activity_allowed_tags',          array( $this, 'activity_allowed_tags' ) );
-		add_filter( 'bp_activity_time_since',            array( $this, 'activity_time_since' ), 10, 2 );
-		add_filter( 'bp_activity_comment_date_recorded', array( $this, 'activity_comment_date_recorded' ), 10, 2 );
-
 		// members
 		add_filter( 'bp_member_last_active', array( $this, 'member_last_active' ) );
 		add_filter( 'bp_member_registered',  array( $this, 'member_registered' ) );
@@ -104,34 +99,6 @@ class BP_Relative_Time {
 		</script>
 
 	<?php
-	}
-
-	/**
-	 * Allow the <time> element when rendering items in the activity loop.
-	 */
-	public function activity_allowed_tags( $retval ) {
-		$retval['span']['data-livestamp'] = array();
-		return $retval;
-	}
-
-	public function activity_time_since( $retval, $activity ) {
-		$time_element = sprintf(
-			'<span data-livestamp="%1$s">%2$s</span>',
-			bp_core_get_iso8601_date( $activity->date_recorded ),
-			str_replace( array( '<span class="time-since">', '</span>' ), '', $retval )
-		);
-
-		return '<span class="time-since">' . $time_element . '</span>';
-	}
-
-	public function activity_comment_date_recorded( $retval ) {
-		global $activities_template;
-
-		return sprintf(
-			'<span data-livestamp="%1$s">%2$s</span>',
-			bp_core_get_iso8601_date( $activities_template->activity->current_comment->date_recorded ),
-			$retval
-		);
 	}
 
 	public function member_last_active( $retval ) {
