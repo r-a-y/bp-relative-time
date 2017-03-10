@@ -117,7 +117,7 @@ class BP_Relative_Time {
 	public function activity_time_since( $retval, $activity ) {
 		$time_element = sprintf(
 			'<span data-livestamp="%1$s">%2$s</span>',
-			$this->get_iso8601_date( $activity->date_recorded ),
+			bp_core_get_iso8601_date( $activity->date_recorded ),
 			str_replace( array( '<span class="time-since">', '</span>' ), '', $retval )
 		);
 
@@ -129,7 +129,7 @@ class BP_Relative_Time {
 
 		return sprintf(
 			'<span data-livestamp="%1$s">%2$s</span>',
-			$this->get_iso8601_date( $activities_template->activity->current_comment->date_recorded ),
+			bp_core_get_iso8601_date( $activities_template->activity->current_comment->date_recorded ),
 			$retval
 		);
 	}
@@ -145,7 +145,7 @@ class BP_Relative_Time {
 			__( 'active %s', 'buddypress' ),
 			sprintf(
 				'<span data-livestamp="%1$s">%2$s</span>',
-				$this->get_iso8601_date( $members_template->member->last_activity ),
+				bp_core_get_iso8601_date( $members_template->member->last_activity ),
 				bp_core_time_since( $members_template->member->last_activity )
 			)
 		);
@@ -162,7 +162,7 @@ class BP_Relative_Time {
 			_x( 'registered %s', 'Records the timestamp that the user registered into the activy stream', 'buddypress' ),
 			sprintf(
 				'<span data-livestamp="%1$s">%2$s</span>',
-				$this->get_iso8601_date( $members_template->member->user_registered ),
+				bp_core_get_iso8601_date( $members_template->member->user_registered ),
 				bp_core_time_since( $members_template->member->user_registered )
 			)
 		);
@@ -177,7 +177,7 @@ class BP_Relative_Time {
 
 		return sprintf(
 			'<span data-livestamp="%1$s">%2$s</span>',
-			$this->get_iso8601_date( $groups_template->group->date_created ),
+			bp_core_get_iso8601_date( $groups_template->group->date_created ),
 			$retval
 		);
 	}
@@ -197,19 +197,9 @@ class BP_Relative_Time {
 
 		return sprintf(
 			'<span data-livestamp="%1$s">%2$s</span>',
-			$this->get_iso8601_date( $last_active ),
+			bp_core_get_iso8601_date( $last_active ),
 			$retval
 		);
 	}
 
-	/**
-	 * Convert a date to an ISO-8601 date.
-	 *
-	 * @param string String of date to convert. Timezone should be UTC.
-	 * @return string
-	 */
-	public function get_iso8601_date( $timestamp = '' ) {
-		$date = new DateTime( $timestamp, new DateTimeZone( 'UTC' ) );
-		return $date->format( DateTime::ISO8601 );
-	}
 }
