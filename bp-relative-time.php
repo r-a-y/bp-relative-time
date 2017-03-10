@@ -77,7 +77,7 @@ class BP_Relative_Time {
 			'yy'     => __( '%d years',      'buddypress' ),
 		) );
 
-		add_action( 'wp_footer', array( $this, 'inline_js' ) );
+		add_action( 'wp_footer', array( $this, 'inline_js' ), 9999 );
 	}
 
 	/**
@@ -93,6 +93,9 @@ class BP_Relative_Time {
 
 		<script type="text/javascript">
 			jq(function() {
+				// Remove BP's livestamp. We handle context for English installs properly.
+				jq('span.activity').livestamp('destroy');
+
 				moment.updateLocale( 'en', {
 					relativeTime : BP_Moment_i18n
 				});
