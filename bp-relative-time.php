@@ -47,12 +47,8 @@ class BP_Relative_Time {
 			return;
 		}
 
-		// register our scripts - using the cloud!
-		wp_register_script( 'bp-moment', '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js', array(), '2.7' );
-		wp_register_script( 'bp-jquery-livestamp', '//cdnjs.cloudflare.com/ajax/libs/livestamp/1.1.2/livestamp.min.js', array( 'jquery', 'bp-moment' ), '1.1.2' );
-
 		// enqueue livestamp.js
-		wp_enqueue_script( 'bp-jquery-livestamp' );
+		wp_enqueue_script( 'bp-livestamp' );
 
 		// we're only localizing the relative time strings for moment.js since that's
 		// all we need for now
@@ -80,7 +76,7 @@ class BP_Relative_Time {
 	 */
 	public function inline_js() {
 		// if livestamp hasn't printed, stop now!
-		if ( false === wp_script_is( 'bp-jquery-livestamp', 'done' ) ) {
+		if ( false === wp_script_is( 'bp-livestamp', 'done' ) ) {
 			return;
 		}
 
