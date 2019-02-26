@@ -106,16 +106,18 @@ class BP_Relative_Time {
 
 		if ( is_numeric( $members_template->member->last_activity ) ) {
 			$last_active = gmdate( 'Y-m-d H:i:s', $members_template->member->last_activity );
+		} else {
+			$last_active = $members_template->member->last_activity;
+		}
 
 		/*
 		 * If we're here, that means 'populate_extras' is false, so manually fetch
 		 * last activity.
 		 */
-		} else {
-			$activity = BP_Core_User::get_last_activity( $members_template->member->id );
-			if ( ! empty( $activity[ $members_template->member->id ] ) ) {
-				$members_template->member->last_activity = $activity[ $members_template->member->id ]['date_recorded'];
-				$last_active = gmdate( 'Y-m-d H:i:s', $members_template->member->last_activity );
+		if ( empty( $last_active ) ) {
+			$last_active = bp_get_user_last_activity( $members_template->member->id );
+			if ( ! empty( $last_active ) ) {
+				$members_template->member->last_activity = $activity;
 
 			// Rare, but fallback to no activity.
 			} else {
