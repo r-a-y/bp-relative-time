@@ -104,6 +104,25 @@ class BP_Relative_Time {
 	public function member_last_active( $retval ) {
 		global $members_template;
 
+		if ( is_numeric( $members_template->member->last_activity ) ) {
+			$last_active = gmdate( 'Y-m-d H:i:s', $members_template->member->last_activity );
+
+		/*
+		 * If we're here, that means 'populate_extras' is false, so manually fetch
+		 * last activity.
+		 */
+		} else {
+			$activity = BP_Core_User::get_last_activity( $members_template->member->id );
+			if ( ! empty( $activity[ $members_template->member->id ] ) ) {
+				$members_template->member->last_activity = $activity[ $members_template->member->id ]['date_recorded'];
+				$last_active = gmdate( 'Y-m-d H:i:s', $members_template->member->last_activity );
+
+			// Rare, but fallback to no activity.
+			} else {
+				return __( 'Never active', 'buddypress' );
+			}
+		}
+
 		return sprintf(
 			// ugh... inconsistencies!
 			// groups component has the 'active' string separated from the timestamp,
@@ -112,7 +131,7 @@ class BP_Relative_Time {
 			__( 'active %s', 'buddypress' ),
 			sprintf(
 				'<span data-livestamp="%1$s">%2$s</span>',
-				bp_core_get_iso8601_date( $members_template->member->last_activity ),
+				bp_core_get_iso8601_date( $last_active ),
 				bp_core_time_since( $members_template->member->last_activity )
 			)
 		);
