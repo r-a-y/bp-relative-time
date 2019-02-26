@@ -1,6 +1,6 @@
 <?php
 
-add_action( 'bp_loaded', array( 'BP_Relative_Time', 'init' ) );
+add_action( 'bp_init', array( 'BP_Relative_Time', 'init' ) );
 
 /**
  * BP Relative Time Core
