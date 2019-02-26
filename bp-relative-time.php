@@ -17,6 +17,11 @@ class BP_Relative_Time {
 	 * Constructor.
 	 */
 	public function __construct() {
+		// Theme compatibility doesn't need this.
+		if ( bp_detect_theme_compat_with_current_theme() ) {
+			return;
+		}
+
 		// assets
 		add_action( 'bp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
